@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "status": "NEW",
+    "status": "READY",
     "customer": "shmuel",
     "table": 1
   },

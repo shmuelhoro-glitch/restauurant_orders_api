@@ -32,7 +32,7 @@ export async function addOrder(req, res){
     const newOrder = await {id:id,status:"NEW",customer:customer,table:table}
     data.push(newOrder)
     await saveChanges(data)
-    return res.send("success")
+    return res.status(201).send("success")
 }   
 
 
@@ -67,5 +67,32 @@ export async function deleteOrder(req, res){
     data.splice(indexOrder,1)
     await saveChanges(data)
     res.send("success")
+
+}
+
+
+export async function updateStatus(req, res){
+    const data = await readFile()
+    const id = req.params.id
+    const {status} = req.body
+    const currentOrder = await data.find(order => order.id === Number(id))
+    if (currentOrder.status === "NEW"){
+        if (status === "PREPARING" || status === "CANCELLED"){
+            currentOrder.status = status
+        }
+    }
+    else if (currentOrder.status === "PREPARING"){
+        if (status === "READY" || status === "CANCELLED"){
+            currentOrder.status = status
+        }
+    }
+    else if (currentOrder.status === "READY" && status === "DELIVERED"){
+        currentOrder.status = status
+    }
+    if (currentOrder.status === status){
+        await saveChanges(data)
+        return res.send("status changed successfully")
+    }
+    return res.status(400).send(`you can't change status from ${currentOrder.status} to ${status}`)
 
 }
