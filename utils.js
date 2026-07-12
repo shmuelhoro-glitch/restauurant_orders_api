@@ -39,3 +39,8 @@ export async function routeNotFound(req, res, next) {
     err.statusCode = 404
     next(err)
 }
+
+export async function logger(req, res, next){
+    console.log(`${new Date().toISOString()} | ${req.method} - ${req.url}`)
+    next()
+}

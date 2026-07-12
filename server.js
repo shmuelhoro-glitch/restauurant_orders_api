@@ -1,10 +1,12 @@
 import express from "express"
 import { getAllOrders,addOrder, orderById, updateOrder, deleteOrder, updateStatus } from "./services.js"
-import { checkId, errorhandler, routeNotFound } from "./utils.js"
+import { checkId, errorhandler, routeNotFound, logger } from "./utils.js"
 
 const server = express()
 
 server.use(express.json())
+
+server.use(logger)
 
 server.post('/orders', addOrder)
 
