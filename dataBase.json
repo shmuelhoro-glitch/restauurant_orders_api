@@ -1,1 +1,26 @@
-{"id":1,"status":"NEW","customer":"Shmuel","table":1}
+[
+  {
+    "id": 1,
+    "status": "NEW",
+    "customer": "shmuel",
+    "table": 1
+  },
+  {
+    "id": 2,
+    "status": "NEW",
+    "customer": "chaya",
+    "table": 1
+  },
+  {
+    "id": 3,
+    "status": "NEW",
+    "customer": "avi",
+    "table": 2
+  },
+  {
+    "id": 4,
+    "status": "NEW",
+    "customer": "ron",
+    "table": 2
+  }
+]

@@ -1,13 +1,11 @@
 import express from "express"
-import { getAllOrders } from "./services.js"
+import { getAllOrders,addOrder } from "./services.js"
 
 const server = express()
 
 server.use(express.json())
 
-server.post('/orders', async (req, res) =>{
-    const {customer, table} = req.query
-})
+server.post('/orders', addOrder)
 
 server.get('/orders', getAllOrders)
 

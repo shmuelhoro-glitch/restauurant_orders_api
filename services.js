@@ -1,21 +1,37 @@
-import {readFile} from "./storage.js"
+import {readFile, saveChanges} from "./storage.js"
+import { newId } from "./utils.js"
+
+
 
 export async function getAllOrders(req, res){
     try{
     const {status, customer, table} = req.query
-    console.log(status,customer,table)
-    const data = await readFile()
+    res.data = await readFile()
     if (status != undefined){
-        data.filter(order => order.status === status)
+        res.data = res.data.filter(order => order.status === status)
     }
     if (customer != undefined){
-        data.filter(order => (order.customer).toLowerCase === customer.toLowerCase())
+        res.data = res.data.filter(order => (order.customer).toLowerCase() === customer.toLowerCase())
     }
     if (table != undefined){
-        data.filter(order => order.table === Number(table))
+        res.data = res.data.filter(order => order.table === Number(table))
     }
-    res.send(data)
+    res.send(res.data)
 } catch (err) {
-    throw new Error(err.message)
-}
-}
+    return res.send("error")
+}}
+
+
+
+export async function addOrder(req, res){
+    const {customer, table} = req.body
+    if (customer === undefined || table === undefined){
+        return res.status(400).send("no have data")}
+    const data = await readFile()
+    const id = await newId()
+    const newOrder = await {id:id,status:"NEW",customer:customer,table:table}
+    data.push(newOrder)
+    await saveChanges(data)
+    return res.send("success")
+}   
+
