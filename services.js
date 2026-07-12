@@ -35,3 +35,14 @@ export async function addOrder(req, res){
     return res.send("success")
 }   
 
+
+export async function orderById(req, res){
+    const data = await readFile()
+    const id = req.params.id
+    if (Number.isNaN(Number(id))) {return res.status(400).send("you need to add a num of id")}
+    const currentOrder = await data.find(order => order.id === Number(id))
+    if (!currentOrder) return res.status(404).send("order nut found")
+    return res.send(currentOrder)
+
+}
+
